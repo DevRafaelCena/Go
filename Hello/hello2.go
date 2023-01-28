@@ -6,9 +6,9 @@ import (
 )
 
 func main() {
-	var nome = "Rafael"
-	var idade = 32
-	var versao = 1.1
+	nome := "Rafael"
+	idade := 32
+	versao := 1.1
 	fmt.Println("Olá sr, ", nome, "sua idade é ", idade)
 	fmt.Println("Este programa esta na versão ", versao)
 
