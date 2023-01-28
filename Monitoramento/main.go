@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"net/http"
 	"os"
 )
 
@@ -14,7 +15,7 @@ func main() {
 
 	switch comando {
 	case 1:
-		fmt.Println("Monitorando...")
+		iniciarMonitoramento()
 	case 2:
 		fmt.Println("Exibindo Logs...")
 	case 0:
@@ -48,6 +49,20 @@ func exibeMenu() {
 	fmt.Println("1 - Iniciar Monitoramento")
 	fmt.Println("2 - Exibir Logs")
 	fmt.Println("0 - Sair do Programa")
+}
+
+func iniciarMonitoramento() {
+	fmt.Println("Monitorando...")
+
+	sites := []string{"https://random-status-code.herokuapp.com", "https://www.alura.com.br", "https://www.caelum.com.br"}
+
+	for i := 0; i < len(sites); i++ {
+		fmt.Println("Testando site: ", sites[i])
+		resp, _ := http.Get(sites[i])
+
+		fmt.Println("O endereço responseu corretamente ", resp)
+	}
+
 }
 
 /* ## Compilando o programa
