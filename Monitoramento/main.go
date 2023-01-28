@@ -9,22 +9,24 @@ import (
 func main() {
 	exibeIntroducao()
 
-	exibeMenu()
+	for {
+		exibeMenu()
 
-	comando := leComando()
+		comando := leComando()
 
-	switch comando {
-	case 1:
-		iniciarMonitoramento()
-	case 2:
-		fmt.Println("Exibindo Logs...")
-	case 0:
-		fmt.Println("Saindo do programa...")
-		os.Exit(0)
+		switch comando {
+		case 1:
+			iniciarMonitoramento()
+		case 2:
+			fmt.Println("Exibindo Logs...")
+		case 0:
+			fmt.Println("Saindo do programa...")
+			os.Exit(0)
 
-	default:
-		fmt.Println("Não conheço este comando")
-		os.Exit(-1)
+		default:
+			fmt.Println("Não conheço este comando")
+			os.Exit(-1)
+		}
 	}
 
 }
@@ -60,7 +62,11 @@ func iniciarMonitoramento() {
 		fmt.Println("Testando site: ", sites[i])
 		resp, _ := http.Get(sites[i])
 
-		fmt.Println("O endereço responseu corretamente ", resp)
+		if resp.StatusCode == 200 {
+			fmt.Println("O endereço respondeu corretamente ", resp.StatusCode)
+		} else {
+			fmt.Println("O endereço ", sites[i], "está com problemas. Status Code: ", resp.StatusCode)
+		}
 	}
 
 }
