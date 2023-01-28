@@ -20,11 +20,16 @@ func main() {
 	fmt.Println("O endereço de memória de comando é ", &comando)
 	fmt.Println("O comando escolhido foi ", comando)
 
-	// outra forma
-	var comando2 int
-	fmt.Scan(&comando2)
-	fmt.Println("O endereço de memória de comando2 é ", &comando2)
-	fmt.Println("O comando escolhido foi ", comando2)
+	if comando == 1 {
+		fmt.Println("Monitorando...")
+	} else if comando == 2 {
+		fmt.Println("Exibindo Logs...")
+	} else if comando == 0 {
+		fmt.Println("Saindo do programa...")
+	} else {
+		fmt.Println("Não conheço este comando")
+	}
+
 }
 
 /* ## Compilando o programa
