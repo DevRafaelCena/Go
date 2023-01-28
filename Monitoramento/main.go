@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"net/http"
 	"os"
@@ -60,7 +61,7 @@ func exibeMenu() {
 func iniciarMonitoramento() {
 	fmt.Println("Monitorando...")
 
-	sites := []string{"https://random-status-code.herokuapp.com", "https://www.alura.com.br", "https://www.caelum.com.br"}
+	sites := leArquivo()
 
 	for i := 0; i < monitoramentos; i++ {
 		for _, site := range sites {
@@ -78,6 +79,32 @@ func iniciarMonitoramento() {
 		}
 	}
 
+}
+
+func leArquivo() []string {
+
+	var sites []string
+
+	arquivo, err := os.Open("sites.txt")
+	//arquivo, err := ioutil.ReadFile("sites.txt")
+	//fmt.Println(string(arquivo))
+
+	if err != nil {
+		fmt.Println("Ocorreu um erro: ", err)
+	}
+
+	leitor := bufio.NewReader(arquivo)
+
+	for {
+		linha, err := leitor.ReadString('\n')
+		linha = string(linha[:len(linha)-1])
+		sites = append(sites, linha)
+		if err != nil {
+			break
+		}
+	}
+
+	return sites
 }
 
 /* ## Compilando o programa
