@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"strconv"
+	"strings"
 	"time"
 )
 
@@ -69,9 +71,11 @@ func iniciarMonitoramento() {
 			resp, _ := http.Get(site)
 
 			if resp.StatusCode == 200 {
-				fmt.Println("O endereço respondeu corretamente ", resp.StatusCode)
+				fmt.Println("Site:", site, "foi carregado com sucesso!")
+				registraLog(site, true)
 			} else {
-				fmt.Println("O endereço ", site, "está com problemas. Status Code: ", resp.StatusCode)
+				fmt.Println("Site:", site, "está com problemas. Status Code:", resp.StatusCode)
+				registraLog(site, false)
 			}
 
 			time.Sleep(delay * time.Second)
@@ -97,14 +101,29 @@ func leArquivo() []string {
 
 	for {
 		linha, err := leitor.ReadString('\n')
-		linha = string(linha[:len(linha)-1])
+		linha = strings.TrimSpace((linha[:len(linha)-1]))
 		sites = append(sites, linha)
+
 		if err != nil {
 			break
 		}
 	}
 
 	return sites
+}
+
+// restante do código omitido
+
+func registraLog(site string, status bool) {
+
+	arquivo, err := os.OpenFile("log.txt", os.O_CREATE|os.O_RDWR|os.O_APPEND, 0666)
+
+	if err != nil {
+		fmt.Println("Ocorreu um erro:", err)
+	}
+
+	arquivo.WriteString(site + " - online: " + strconv.FormatBool(status) + "\n")
+	arquivo.Close()
 }
 
 /* ## Compilando o programa
