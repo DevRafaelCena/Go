@@ -1,3 +1,5 @@
 https://random-status-code.herokuapp.com - online: false
 https://www.caelum.com.br - online: true
 https://random-status-code.herokuapp.com - online: false
+28/01/2023 16:23:32 - https://www.caelum.com.br - online: true
+28/01/2023 16:23:39 - https://random-status-code.herokuapp.com - online: false
